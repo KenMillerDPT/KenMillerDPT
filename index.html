@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kenneth L. Miller, PT, DPT, PhD, FNAP — Clinical Tools</title>
+<style>
+  :root {
+    --bg: #f0f4f8;
+    --card: #ffffff;
+    --subtle: #e8eef4;
+    --header: #1a2733;
+    --text: #1a2733;
+    --text-sec: #3d5166;
+    --text-muted: #5a6f82;
+    --border: #c8d5e0;
+    --teal: #0e7a72;
+    --teal-bg: #d4efed;
+    --teal-dark: #085850;
+    --font: system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1d28; --card: #162230; --subtle: #1c2d3c; --header: #0b1520;
+      --text: #d8e6f0; --text-sec: #97b4c8; --text-muted: #7a9db5;
+      --border: #2a3f52; --teal: #3abfb5; --teal-bg: #0c2e2c; --teal-dark: #5ed0c8;
+    }
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font); font-size: 15px; line-height: 1.65; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+  /* Header */
+  header { background: var(--header); padding: 40px 24px 36px; }
+  .header-inner { max-width: 720px; margin: 0 auto; }
+  .header-eyebrow {
+    font-size: 12px; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: #9bb5c8; margin-bottom: 12px;
+  }
+  h1 { font-size: clamp(22px, 3.5vw, 30px); font-weight: 600; color: #ffffff; line-height: 1.2; margin-bottom: 8px; }
+  .header-creds { font-size: 14px; color: #9bb5c8; margin-bottom: 6px; line-height: 1.5; }
+  .header-affil { font-size: 13px; color: #6e8fa6; line-height: 1.5; }
+
+  /* Main */
+  main { max-width: 720px; margin: 0 auto; padding: 36px 16px 72px; }
+  .section-label {
+    font-size: 11.5px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--text-muted);
+    margin-bottom: 16px; padding-left: 2px;
+  }
+
+  /* Tool cards */
+  .tools { display: flex; flex-direction: column; gap: 16px; }
+
+  .tool-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    display: block;
+    transition: box-shadow 0.15s, border-color 0.15s;
+  }
+  .tool-card:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.10);
+    border-color: var(--teal);
+  }
+
+  .tool-card-inner {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 20px 22px;
+  }
+
+  .tool-icon {
+    font-size: 32px;
+    flex-shrink: 0;
+    width: 52px;
+    height: 52px;
+    background: var(--teal-bg);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tool-content { flex: 1; min-width: 0; }
+
+  .tool-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+
+  .tool-desc {
+    font-size: 13.5px;
+    color: var(--text-sec);
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+
+  .tool-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+
+  .tag {
+    display: inline-block;
+    font-size: 11.5px;
+    font-weight: 600;
+    padding: 2px 9px;
+    border-radius: 12px;
+    background: var(--teal-bg);
+    color: var(--teal-dark);
+    border: 1px solid var(--border);
+  }
+
+  .tool-arrow {
+    font-size: 20px;
+    color: var(--text-muted);
+    flex-shrink: 0;
+    transition: transform 0.15s;
+  }
+  .tool-card:hover .tool-arrow { transform: translateX(4px); color: var(--teal); }
+
+  /* Disclaimer */
+  .disclaimer {
+    margin-top: 40px;
+    background: var(--subtle);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-size: 12.5px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .disclaimer strong { color: var(--text-sec); }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-muted);
+    padding: 0 16px 32px;
+    max-width: 720px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-eyebrow">Clinical Decision-Support Tools</div>
+    <h1>Kenneth L. Miller</h1>
+    <div class="header-creds">PT, DPT, PhD, FNAP</div>
+    <div class="header-affil">
+      Associate Professor &amp; Geriatric PT Residency Program Director<br>
+      MUSC College of Health Professions
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="section-label">Available Tools</div>
+
+  <div class="tools">
+
+    <a class="tool-card" href="https://kenmillerdpt.github.io/Fall-Risk-Calculator" target="_blank">
+      <div class="tool-card-inner">
+        <div class="tool-icon">🦶</div>
+        <div class="tool-content">
+          <div class="tool-name">Fall Risk — Posttest Probability Calculator</div>
+          <div class="tool-desc">Calculates cumulative posttest probability of future falls for community-dwelling older adults using Bayesian likelihood ratio chaining. Based on Lusardi et al. (2017) and updated per the 2025 APTA Geriatrics CPG.</div>
+          <div class="tool-tags">
+            <span class="tag">Geriatrics</span>
+            <span class="tag">Fall Risk</span>
+            <span class="tag">Clinical Screening</span>
+            <span class="tag">Lusardi 2017</span>
+            <span class="tag">APTA CPG 2025</span>
+          </div>
+        </div>
+        <div class="tool-arrow">→</div>
+      </div>
+    </a>
+
+    <a class="tool-card" href="https://kenmillerdpt.github.io/2023-AGS-PIM-Look-up-and-Drug-Drug-Interaction-Checker" target="_blank">
+      <div class="tool-card-inner">
+        <div class="tool-icon">💊</div>
+        <div class="tool-content">
+          <div class="tool-name">2023 AGS Beers Criteria — PIM Lookup &amp; Drug Interaction Checker</div>
+          <div class="tool-desc">Look up potentially inappropriate medications (PIMs) for older adults per the 2023 American Geriatrics Society Beers Criteria, with drug–drug interaction checking.</div>
+          <div class="tool-tags">
+            <span class="tag">Pharmacology</span>
+            <span class="tag">Beers Criteria</span>
+            <span class="tag">Older Adults</span>
+            <span class="tag">AGS 2023</span>
+          </div>
+        </div>
+        <div class="tool-arrow">→</div>
+      </div>
+    </a>
+
+    <a class="tool-card" href="https://kenmillerdpt.github.io/Functional-Mobility-Tests/" target="_blank">
+      <div class="tool-card-inner">
+        <div class="tool-icon">🚶</div>
+        <div class="tool-content">
+          <div class="tool-name">Functional Mobility Test Station</div>
+          <div class="tool-desc">Administer and score mobility, gait, strength, endurance, balance, posture and flexibility tests, plus balance confidence and fear of falling questionnaires. Includes built-in timers, age norms, change since the last visit, and a copy-ready chart note. Works on a phone.</div>
+          <div class="tool-tags">
+            <span class="tag">Geriatrics</span>
+            <span class="tag">Mobility</span>
+            <span class="tag">Gait</span>
+            <span class="tag">Balance</span>
+            <span class="tag">Outcome Measures</span>
+          </div>
+        </div>
+        <div class="tool-arrow">→</div>
+      </div>
+    </a>
+
+    <a class="tool-card" href="https://kenmillerdpt.github.io/HR-Max-Calculator/" target="_blank">
+      <div class="tool-card-inner">
+        <div class="tool-icon">❤️</div>
+        <div class="tool-content">
+          <div class="tool-name">HR Max &amp; Target Heart Rate Calculator</div>
+          <div class="tool-desc">Estimate maximal heart rate with the Tanaka and Brawner equations, then set Karvonen (heart rate reserve) training target zones with matching RPE ranges, from an estimated or measured HR max. Includes a beta-blocker option.</div>
+          <div class="tool-tags">
+            <span class="tag">Exercise Prescription</span>
+            <span class="tag">Heart Rate</span>
+            <span class="tag">Karvonen</span>
+            <span class="tag">Tanaka</span>
+            <span class="tag">Brawner</span>
+            <span class="tag">ACSM</span>
+          </div>
+        </div>
+        <div class="tool-arrow">→</div>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="disclaimer">
+    <strong>Disclaimer:</strong> These tools are intended for use by licensed physical therapists and other qualified healthcare professionals as educational and clinical decision-support resources. They do not replace clinical judgment or individualized patient examination. These tools have not been reviewed or endorsed by the Medical University of South Carolina (MUSC). The developer assumes no liability for clinical decisions made on the basis of these tools.
+  </div>
+</main>
+
+<footer>
+  Kenneth L. Miller, PT, DPT, PhD, FNAP &nbsp;·&nbsp; Last updated October 7, 2026<br>
+  These tools are provided for educational and professional use.
+</footer>
+
+</body>
+</html>
