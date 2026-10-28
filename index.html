@@ -206,7 +206,7 @@
         <div class="tool-icon">🚶</div>
         <div class="tool-content">
           <div class="tool-name">Functional Mobility Test Station</div>
-          <div class="tool-desc">Administer and score mobility, gait, strength, endurance, balance, posture and flexibility tests, plus balance confidence and fear of falling questionnaires. Includes built-in timers, age norms, change since the last visit, and a copy-ready chart note. Works on a phone.</div>
+          <div class="tool-desc">Administer and score mobility, gait, strength, endurance, balance, posture and flexibility tests, plus balance confidence and fear of falling questionnaires. Includes built-in timers, age norms, and a copy-ready chart note. Works on a phone.</div>
           <div class="tool-tags">
             <span class="tag">Geriatrics</span>
             <span class="tag">Mobility</span>
@@ -246,9 +246,99 @@
 </main>
 
 <footer>
-  Kenneth L. Miller, PT, DPT, PhD, FNAP &nbsp;·&nbsp; Last updated October 7, 2026<br>
-  These tools are provided for educational and professional use.
+  Kenneth L. Miller, PT, DPT, PhD, FNAP &nbsp;·&nbsp; Last updated October 28, 2026<br>
+  These tools are provided for educational and professional use.<br>
+  Anonymous usage counts (page views and which tool is opened) are collected with GoatCounter, which uses no cookies.
 </footer>
 
+<script>
+/* ===== Usage counts (GoatCounter) =====
+   Counts visits to this page and which tool card is opened. Nothing else is collected or sent.
+   Only these event names are sent, each once per page load:
+     home-page/card/<tool>/opened   a tool card was clicked (the tool is named by its web address)
+     home-page/used                 the first tool card clicked
+   A small line at the bottom of the page shows the public totals (Page views, Tool opens).
+   It appears only after "Allow adding visitor counts on your website" is turned on in GoatCounter settings.
+   Set CODE to "" to turn counting off. Counting is skipped when the browser sends Do Not Track. */
+(function () {
+  var CODE = "KenMillerDPT";
+  var CALCULATOR = "home-page";
+
+  var dnt = navigator.doNotTrack === "1" || window.doNotTrack === "1";
+  if (!CODE) return;
+  var counting = !dnt;
+
+  var queue = [], seen = {};
+  function send(name) {
+    try { window.goatcounter.count({ path: name, title: name, event: true }); } catch (e) {}
+  }
+  function track(name) {
+    var ev = CALCULATOR + "/" + name;
+    if (!counting || seen[ev]) return;
+    seen[ev] = true;
+    if (window.goatcounter && typeof window.goatcounter.count === "function") send(ev);
+    else queue.push(ev);
+  }
+
+  var gc = document.createElement("script");
+  gc.async = true;
+  gc.src = "https://gc.zgo.at/count.js";
+  gc.setAttribute("data-goatcounter", "https://" + CODE + ".goatcounter.com/count");
+  gc.onload = function () { while (queue.length) send(queue.shift()); showTally(); };
+  if (counting) document.head.appendChild(gc); else showTally();
+
+  // Visible tally. Reads the public counts back from GoatCounter and shows them at the bottom of the page.
+  // A number is shown only when GoatCounter returns one, so the line stays hidden if the setting is off.
+  function readCount(path, done) {
+    try {
+      var x = new XMLHttpRequest();
+      x.open("GET", "https://" + CODE + ".goatcounter.com/counter/" + encodeURIComponent(path) + ".json");
+      x.onload = function () {
+        var n = null;
+        try { if (x.status === 200) n = parseInt(String(JSON.parse(x.responseText).count).replace(/[^0-9]/g, ""), 10); } catch (e) {}
+        done(n > 0 ? n : null);
+      };
+      x.onerror = function () { done(null); };
+      x.send();
+    } catch (e) { done(null); }
+  }
+  function showTally() {
+    var path = location.pathname;
+    try { if (window.goatcounter && window.goatcounter.get_data) path = window.goatcounter.get_data().p || path; } catch (e) {}
+    var views = null, uses = null, pending = 2;
+    function finish() {
+      if (--pending) return;
+      var parts = [];
+      if (views) parts.push("Page views: " + views.toLocaleString("en-US"));
+      if (uses) parts.push("Tool opens: " + uses.toLocaleString("en-US"));
+      if (!parts.length) return;
+      var box = document.createElement("p");
+      box.className = "ct-tally";
+      box.style.cssText = "margin:10px 0 0;text-align:center;font-size:13px;opacity:.85";
+      box.textContent = parts.join("  \u00b7  ");
+      (document.querySelector("footer") || document.querySelector("main") || document.body).appendChild(box);
+    }
+    readCount(path, function (n) { views = n; finish(); });
+    readCount(CALCULATOR + "/used", function (n) { uses = n; finish(); });
+  }
+
+  // Tool cards: the tool name comes from the card's own web address, for example "fall-risk-calculator".
+  function cardName(a) {
+    var parts = String((a && a.getAttribute && a.getAttribute("href")) || "").split("?")[0].split("#")[0].split("/").filter(Boolean);
+    var last = parts.length ? parts[parts.length - 1] : "";
+    last = last.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 70);
+    return /^[a-z0-9-]{1,70}$/.test(last) ? last : "";
+  }
+  function onCard(e) {
+    var a = e.target && e.target.closest ? e.target.closest("a.tool-card") : null;
+    if (!a) return;
+    var name = cardName(a);
+    track("used");
+    if (name) track("card/" + name + "/opened");
+  }
+  document.addEventListener("click", onCard, true);
+  document.addEventListener("auxclick", onCard, true);
+})();
+</script>
 </body>
 </html>
